@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>품사 탐구하기 — 미래엔(민병곤) 국어 1-1 수행평가</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-50:#E6F1FB;--blue-100:#B5D4F4;--blue-200:#85B7EB;--blue-600:#185FA5;--blue-800:#0C447C;--blue-900:#042C53;
+  --teal-50:#E1F5EE;--teal-200:#5DCAA5;--teal-600:#0F6E56;--teal-800:#085041;--teal-900:#04342C;
+  --green-50:#EAF3DE;--green-200:#97C459;--green-600:#3B6D11;--green-800:#27500A;
+  --amber-50:#FAEEDA;--amber-200:#EF9F27;--amber-600:#BA7517;--amber-800:#633806;
+  --coral-50:#FAECE7;--coral-200:#F0997B;--coral-600:#993C1D;--coral-800:#4A1B0C;
+  --gray-50:#F1EFE8;--gray-200:#B4B2A9;--gray-600:#5F5E5A;--gray-800:#2C2C2A;
+  --pink-50:#FBEAF0;--pink-200:#ED93B1;--pink-600:#993556;--pink-800:#4B1528;
+  --purple-50:#EEEDFE;--purple-200:#AFA9EC;--purple-600:#534AB7;--purple-800:#26215C;
+  --red-50:#FCEBEB;--red-600:#A32D2D;--red-800:#791F1F;
+  --bg:#fff;--bg-s:#f7f6f3;--bg-t:#f0ede8;
+  --text:#1a1a18;--text-s:#5a5955;--text-t:#8a8880;
+  --bd:rgba(0,0,0,.1);--bd-m:rgba(0,0,0,.18);
+  --r-s:6px;--r-m:10px;--r-l:14px;
+  --sh:0 1px 4px rgba(0,0,0,.08);
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#1a1a18;--bg-s:#242422;--bg-t:#2c2c2a;--text:#f0ede8;--text-s:#a8a5a0;--text-t:#6e6b66;--bd:rgba(255,255,255,.1);--bd-m:rgba(255,255,255,.18)}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg-t);color:var(--text);min-height:100vh;line-height:1.6}
+.header{background:var(--blue-600);color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center}
+.header-badge{display:inline-block;background:rgba(255,255,255,.2);font-size:11px;font-weight:600;letter-spacing:.06em;padding:4px 12px;border-radius:20px;margin-bottom:10px}
+.header h1{font-size:22px;font-weight:700;margin-bottom:4px}
+.header p{font-size:13px;opacity:.8}
+.container{max-width:820px;margin:0 auto;padding:1.5rem 1rem 4rem}
+.tab-nav{display:flex;gap:3px;flex-wrap:wrap;background:var(--bg);border-radius:var(--r-l);padding:5px;margin-bottom:1.25rem;box-shadow:var(--sh);border:1px solid var(--bd)}
+.tab-btn{flex:1;min-width:90px;background:none;border:none;cursor:pointer;font-size:12px;font-weight:500;color:var(--text-s);padding:7px 8px;border-radius:var(--r-s);transition:all .15s;font-family:inherit}
+.tab-btn:hover{background:var(--bg-s);color:var(--text)}
+.tab-btn.active{background:var(--blue-600);color:#fff}
+.tab-content{display:none}.tab-content.active{display:block}
+.card{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r-l);padding:1.1rem 1.25rem;margin-bottom:12px;box-shadow:var(--sh)}
+.section-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-t);margin:1.25rem 0 .6rem;padding-bottom:5px;border-bottom:1px solid var(--bd)}
+.info-badge{display:inline-flex;align-items:center;gap:6px;background:var(--blue-50);color:var(--blue-800);border:1px solid var(--blue-200);font-size:12px;font-weight:500;padding:6px 12px;border-radius:var(--r-m);margin-bottom:1rem}
+.tip{border-left:3px solid var(--blue-600);border-radius:0 var(--r-s) var(--r-s) 0;background:var(--blue-50);color:var(--blue-800);padding:9px 13px;font-size:13px;line-height:1.6;margin:8px 0}
+.tip.warn{border-color:#E24B4A;background:var(--red-50);color:var(--red-800)}
+.tip.green{border-color:var(--green-600);background:var(--green-50);color:var(--green-800)}
+.tip.amber{border-color:var(--amber-600);background:var(--amber-50);color:var(--amber-800)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th,.tbl td{padding:9px 11px;border:1px solid var(--bd);text-align:left;vertical-align:top}
+.tbl th{background:var(--bg-s);font-weight:600}
+.tbl tr:nth-child(even) td{background:var(--bg-s)}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;margin:2px}
+.step-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--bd)}
+.step-row:last-child{border-bottom:none}
+.step-num{min-width:26px;height:26px;border-radius:50%;background:var(--blue-600);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;flex-shrink:0}
+.step-title{font-size:13px;font-weight:600;margin-bottom:3px}
+.step-desc{font-size:12px;color:var(--text-s);line-height:1.6}
+.group-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:1rem}
+.group-card{border-radius:var(--r-m);padding:12px 14px;cursor:pointer;border:2px solid transparent;transition:all .15s;user-select:none}
+.group-card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.group-label{font-size:10px;font-weight:700;letter-spacing:.05em;opacity:.7;margin-bottom:4px}
+.group-name{font-size:14px;font-weight:700;margin-bottom:3px}
+.group-pos{font-size:11px;opacity:.75}
+.detail-box{background:var(--bg-s);border:1px solid var(--bd);border-radius:var(--r-l);padding:1.1rem 1.25rem;min-height:80px;margin-bottom:1rem}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.compare-card{border-radius:var(--r-m);padding:12px 14px}
+@media(max-width:480px){.compare-grid{grid-template-columns:1fr}}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:5px;margin:2px}
+.sent-area{font-size:17px;line-height:2.6;margin:8px 0}
+.sent-word{display:inline-block;padding:2px 6px;border-radius:5px;margin:2px;cursor:pointer;border:1.5px dashed var(--bd-m);transition:all .12s}
+.sent-word:hover{transform:translateY(-1px)}
+.popup-box{display:none;background:var(--bg);border:1px solid var(--bd-m);border-radius:var(--r-l);padding:13px 16px;margin-top:10px;font-size:13px;line-height:1.7;box-shadow:var(--sh)}
+.popup-box.show{display:block}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.answer-box{background:var(--bg-s);border-radius:var(--r-m);padding:12px 14px;font-size:13px;line-height:1.9;color:var(--text);margin:8px 0}
+.quiz-q{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--text)}
+.quiz-opts{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:6px}
+.qbtn{background:var(--bg);border:1px solid var(--bd-m);border-radius:var(--r-s);padding:7px 14px;font-size:13px;cursor:pointer;color:var(--text);transition:all .12s;font-family:inherit}
+.qbtn:hover{background:var(--bg-s)}
+.qbtn.ok{background:var(--green-50);border-color:var(--green-600);color:var(--green-800);font-weight:600}
+.qbtn.no{background:var(--red-50);border-color:var(--red-600);color:var(--red-800)}
+.qres{font-size:12px;min-height:18px;color:var(--text-s);margin-top:4px}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:1rem}
+.score-cell{background:var(--bg-s);border:1px solid var(--bd);border-radius:var(--r-m);padding:12px;text-align:center}
+.score-num{font-size:22px;font-weight:700;color:var(--blue-600)}
+.score-lbl{font-size:11px;color:var(--text-t);margin-top:2px}
+.sent-btns{display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap}
+.sent-btn{background:var(--bg-s);border:1px solid var(--bd-m);border-radius:var(--r-s);padding:5px 14px;font-size:12px;font-weight:500;cursor:pointer;color:var(--text-s);transition:all .12s;font-family:inherit}
+.sent-btn.active{background:var(--blue-600);color:#fff;border-color:var(--blue-600)}
+/* 빈칸 채우기 */
+.blank-input{border:none;border-bottom:2px solid var(--blue-600);background:transparent;color:var(--text);font-size:14px;font-family:inherit;width:80px;text-align:center;outline:none;padding:2px 4px}
+.blank-input.correct{border-bottom-color:var(--green-600);color:var(--green-800)}
+.blank-input.wrong{border-bottom-color:var(--red-600);color:var(--red-800)}
+.check-btn{background:var(--blue-600);color:#fff;border:none;border-radius:var(--r-s);padding:7px 18px;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;transition:all .12s}
+.check-btn:hover{background:var(--blue-800)}
+.blank-result{font-size:12px;margin-top:6px;min-height:16px}
+/* 진행 표시 */
+.progress-bar{background:var(--bg-s);border-radius:20px;height:6px;margin-bottom:1rem;overflow:hidden;border:1px solid var(--bd)}
+.progress-fill{height:100%;background:var(--blue-600);border-radius:20px;transition:width .3s}
+.footer{text-align:center;font-size:11px;color:var(--text-t);margin-top:3rem;padding-top:1rem;border-top:1px solid var(--bd)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">미래엔(민병곤) · 국어 1-1 · 3단원</div>
+  <h1>품사 탐구하기 수행평가</h1>
+  <p>단어의 갈래 — 체언 · 용언 · 수식언 · 관계언 · 독립언</p>
+</div>
+
+<div class="container">
+
+  <div class="info-badge">📘 성취기준 [9국04-03] — 품사의 종류와 특성을 이해하고 국어 자료를 분석한다</div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('t1',this)">① 단원 구조</button>
+    <button class="tab-btn" onclick="showTab('t2',this)">② 5묶음 탐구</button>
+    <button class="tab-btn" onclick="showTab('t3',this)">③ 헷갈림 정복</button>
+    <button class="tab-btn" onclick="showTab('t4',this)">④ 문장 분석</button>
+    <button class="tab-btn" onclick="showTab('t5',this)">⑤ 빈칸 채우기</button>
+    <button class="tab-btn" onclick="showTab('t6',this)">⑥ 답안 연습</button>
+    <button class="tab-btn" onclick="showTab('t7',this)">⑦ 퀴즈 20문제</button>
+  </div>
+
+  <!-- ① 단원 구조 -->
+  <div id="t1" class="tab-content active">
+    <div class="section-title">교과서 학습 흐름</div>
+    <div class="card">
+      <div class="step-row"><div class="step-num">1</div><div><div class="step-title">품사의 개념과 분류 기준 이해</div><div class="step-desc">의미·기능·형태 3가지 기준으로 단어를 9가지 품사로 나눌 수 있다.</div></div></div>
+      <div class="step-row"><div class="step-num">2</div><div><div class="step-title">9품사를 5가지 묶음으로 분류</div><div class="step-desc">체언 / 용언 / 수식언 / 관계언 / 독립언 → <strong>미래엔 교과서의 핵심 분류 틀!</strong></div></div></div>
+      <div class="step-row"><div class="step-num">3</div><div><div class="step-title">제시된 국어 자료에서 품사 분석</div><div class="step-desc">실제 문장·글에서 각 단어의 품사를 찾고 근거를 설명한다.</div></div></div>
+      <div class="step-row"><div class="step-num">4</div><div><div class="step-title">조건에 맞게 품사가 사용된 문장 만들기</div><div class="step-desc">특정 품사를 반드시 포함하는 문장을 창작한다.</div></div></div>
+      <div class="step-row"><div class="step-num">5</div><div><div class="step-title">자신이 만든 문장으로 품사 분석하기</div><div class="step-desc">4에서 만든 문장의 각 단어 품사를 스스로 분석·설명한다.</div></div></div>
+    </div>
+
+    <div class="section-title">9품사 → 5묶음 완전 정리표</div>
+    <div class="card" style="overflow-x:auto">
+      <table class="tbl">
+        <thead><tr><th>묶음</th><th>품사</th><th>형태</th><th>기능(역할)</th><th>대표 예시</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="3" style="font-weight:700;color:var(--blue-800);vertical-align:middle">체언</td><td>명사</td><td>불변</td><td>주어·목적어·보어 등</td><td>학교, 사랑, 나무</td></tr>
+          <tr><td>대명사</td><td>불변</td><td>명사 대신 사용</td><td>나, 너, 이것, 여기</td></tr>
+          <tr><td>수사</td><td>불변</td><td>수량·순서 표현</td><td>하나, 둘, 첫째</td></tr>
+          <tr><td rowspan="2" style="font-weight:700;color:var(--teal-800);vertical-align:middle">용언</td><td>동사</td><td>가변(활용)</td><td>서술어 — 움직임</td><td>먹다, 달리다, 오다</td></tr>
+          <tr><td>형용사</td><td>가변(활용)</td><td>서술어 — 성질·상태</td><td>예쁘다, 있다, 없다</td></tr>
+          <tr><td rowspan="2" style="font-weight:700;color:var(--green-800);vertical-align:middle">수식언</td><td>관형사</td><td>불변</td><td>체언 앞에서 꾸밈</td><td>새, 헌, 모든, 두</td></tr>
+          <tr><td>부사</td><td>불변</td><td>용언·문장 꾸밈</td><td>매우, 빨리, 과연</td></tr>
+          <tr><td style="font-weight:700;color:var(--gray-800)">관계언</td><td>조사</td><td>불변</td><td>문법적 관계 표시</td><td>이/가, 을/를, 에서</td></tr>
+          <tr><td style="font-weight:700;color:var(--pink-800)">독립언</td><td>감탄사</td><td>불변</td><td>독립적 감정 표현</td><td>아, 어머, 네, 글쎄</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">수행평가 채점 기준</div>
+    <div class="card" style="overflow-x:auto">
+      <table class="tbl">
+        <thead><tr><th>등급</th><th>수준</th><th>충족 항목 수</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;color:var(--blue-600)">A</td><td>매우 우수</td><td>5개 항목 충족</td></tr>
+          <tr><td style="font-weight:700;color:var(--green-600)">B</td><td>우수</td><td>4개 항목 충족</td></tr>
+          <tr><td>C</td><td>보통</td><td>3개 항목 충족</td></tr>
+          <tr><td>D</td><td>미흡</td><td>2개 항목 충족</td></tr>
+          <tr><td style="color:var(--red-600)">E</td><td>매우 미흡</td><td>0~1개 항목 충족</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip">💡 <strong>채점 5항목:</strong> ① 품사 개념과 분류 기준 설명 ② 품사 종류와 특징 설명 ③ 제시 자료 품사 분석·분류 ④ 조건에 맞는 문장 만들기 ⑤ 만든 문장으로 품사 분석</div>
+  </div>
+
+  <!-- ② 5묶음 탐구 -->
+  <div id="t2" class="tab-content">
+    <div class="section-title">묶음을 선택하면 자세한 내용이 나옵니다</div>
+    <div class="group-grid" id="groupGrid">
+      <div class="group-card" style="background:var(--blue-50);color:var(--blue-800)" onclick="showGroup(0)"><div class="group-label">체언 (體言)</div><div class="group-name">문장의 몸통</div><div class="group-pos">명사 · 대명사 · 수사</div></div>
+      <div class="group-card" style="background:var(--teal-50);color:var(--teal-800)" onclick="showGroup(1)"><div class="group-label">용언 (用言)</div><div class="group-name">서술하는 말</div><div class="group-pos">동사 · 형용사</div></div>
+      <div class="group-card" style="background:var(--green-50);color:var(--green-800)" onclick="showGroup(2)"><div class="group-label">수식언 (修飾言)</div><div class="group-name">꾸며 주는 말</div><div class="group-pos">관형사 · 부사</div></div>
+      <div class="group-card" style="background:var(--gray-50);color:var(--gray-800)" onclick="showGroup(3)"><div class="group-label">관계언 (關係言)</div><div class="group-name">관계를 나타내는 말</div><div class="group-pos">조사</div></div>
+      <div class="group-card" style="background:var(--pink-50);color:var(--pink-800)" onclick="showGroup(4)"><div class="group-label">독립언 (獨立言)</div><div class="group-name">독립적인 말</div><div class="group-pos">감탄사</div></div>
+    </div>
+    <div class="detail-box" id="groupDetail"><p style="color:var(--text-t);font-size:13px">위의 묶음 카드를 눌러 확인하세요.</p></div>
+
+    <div class="section-title">조사 세부 분류 (관계언)</div>
+    <div class="card" style="overflow-x:auto">
+      <table class="tbl">
+        <thead><tr><th>종류</th><th>기능</th><th>예시</th><th>사용 예문</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">격조사</td><td>문장 성분의 자격 표시</td><td>이/가, 을/를, 의, 에, 에서, 에게, 로, 와/과</td><td>나<strong>가</strong> 학교<strong>에서</strong> 공부한다</td></tr>
+          <tr><td style="font-weight:600">보조사</td><td>특별한 의미 추가</td><td>은/는, 도, 만, 까지, 부터, 마저, 조차</td><td>나<strong>는</strong> 밥<strong>만</strong> 먹는다</td></tr>
+          <tr><td style="font-weight:600">접속조사</td><td>단어와 단어 이어 줌</td><td>와/과, 이랑, 하고</td><td>사과<strong>와</strong> 배를 먹었다</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">의존명사 vs 조사 구별</div>
+    <div class="card">
+      <div class="compare-grid">
+        <div class="compare-card" style="background:var(--blue-50)">
+          <p style="font-size:12px;font-weight:700;color:var(--blue-800);margin-bottom:6px">의존명사 (체언)</p>
+          <p style="font-size:12px;color:var(--blue-600);margin-bottom:6px">앞말과 <strong>띄어 씀</strong>, 조사와 결합 가능</p>
+          <p style="font-size:13px">할 <strong>수</strong> 있다 / 먹을 <strong>것</strong> / 아는 <strong>바</strong></p>
+        </div>
+        <div class="compare-card" style="background:var(--gray-50)">
+          <p style="font-size:12px;font-weight:700;color:var(--gray-800);margin-bottom:6px">조사 (관계언)</p>
+          <p style="font-size:12px;color:var(--gray-600);margin-bottom:6px">앞말과 <strong>붙여 씀</strong>, 홀로 못 쓰임</p>
+          <p style="font-size:13px">학교<strong>에서</strong> / 나<strong>는</strong> / 꽃<strong>이</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 헷갈림 정복 -->
+  <div id="t3" class="tab-content">
+    <div class="section-title">자주 틀리는 포인트 총정리</div>
+
+    <div class="card">
+      <p style="font-size:14px;font-weight:700;color:var(--red-600);margin-bottom:10px">⚠ 관형사 vs 수사 — 헷갈림 1위</p>
+      <div class="compare-grid">
+        <div class="compare-card" style="background:var(--green-50)">
+          <p style="font-size:12px;font-weight:700;color:var(--green-800);margin-bottom:6px">수 관형사</p>
+          <p style="font-size:12px;color:var(--green-600);margin-bottom:6px">뒤에 단위명사가 온다</p>
+          <p><span class="chip" style="background:var(--green-50);color:var(--green-800);border:1px solid var(--green-200)">한</span>명 <span class="chip" style="background:var(--green-50);color:var(--green-800);border:1px solid var(--green-200)">두</span>권 <span class="chip" style="background:var(--green-50);color:var(--green-800);border:1px solid var(--green-200)">세</span>개 <span class="chip" style="background:var(--green-50);color:var(--green-800);border:1px solid var(--green-200)">네</span>마리</p>
+        </div>
+        <div class="compare-card" style="background:var(--amber-50)">
+          <p style="font-size:12px;font-weight:700;color:var(--amber-800);margin-bottom:6px">수사</p>
+          <p style="font-size:12px;color:var(--amber-600);margin-bottom:6px">홀로 수량·순서 나타냄</p>
+          <p><span class="chip" style="background:var(--amber-50);color:var(--amber-800);border:1px solid var(--amber-200)">하나</span> <span class="chip" style="background:var(--amber-50);color:var(--amber-800);border:1px solid var(--amber-200)">둘</span> <span class="chip" style="background:var(--amber-50);color:var(--amber-800);border:1px solid var(--amber-200)">셋</span> <span class="chip" style="background:var(--amber-50);color:var(--amber-800);border:1px solid var(--amber-200)">첫째</span></p>
+        </div>
+      </div>
+      <div class="tip">💡 "두 권" → 뒤에 '권' 있으면 <strong>관형사</strong> / "둘이 있다" → 홀로 주어처럼 쓰이면 <strong>수사</strong></div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:14px;font-weight:700;color:var(--red-600);margin-bottom:10px">⚠ 동사 vs 형용사 — 헷갈림 2위</p>
+      <div class="compare-grid">
+        <div class="compare-card" style="background:var(--teal-50)">
+          <p style="font-size:12px;font-weight:700;color:var(--teal-800);margin-bottom:6px">동사</p>
+          <p style="font-size:12px;color:var(--teal-600);margin-bottom:4px">명령형("-어라") 가능 ✓</p>
+          <p style="font-size:13px">먹<strong>어라</strong>✓ 달려<strong>라</strong>✓ 자<strong>라</strong>✓</p>
+        </div>
+        <div class="compare-card" style="background:var(--purple-50)">
+          <p style="font-size:12px;font-weight:700;color:var(--purple-800);margin-bottom:6px">형용사</p>
+          <p style="font-size:12px;color:var(--purple-600);margin-bottom:4px">명령형 불가능 ✗</p>
+          <p style="font-size:13px">예뻐<strong>라</strong>✗ 크<strong>어라</strong>✗ 많<strong>아라</strong>✗</p>
+        </div>
+      </div>
+      <div class="tip warn">🔴 반드시 암기! 동사처럼 보이지만 형용사: <strong>있다, 없다, 많다, 적다, 같다, 다르다, 좋다, 싫다, 필요하다, 비슷하다</strong></div>
+      <div class="tip amber">⚡ 진행형("-고 있다") 가능 → 동사 / 불가능 → 형용사<br>예) 먹고 있다(O)=동사 / 예쁘고 있다(X)=형용사</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:14px;font-weight:700;color:var(--red-600);margin-bottom:10px">⚠ 관형사 vs 형용사의 관형사형</p>
+      <div class="compare-grid">
+        <div class="compare-card" style="background:var(--green-50)">
+          <p style="font-size:12px;font-weight:700;color:var(--green-800);margin-bottom:6px">관형사 (형태 변화 없음)</p>
+          <p style="font-size:13px;margin-bottom:4px">"<strong>새</strong> 신발", "<strong>헌</strong> 옷", "<strong>모든</strong> 학생", "<strong>어느</strong> 날"</p>
+          <p style="font-size:12px;color:var(--green-600)">원형이 없음 → 관형사</p>
+        </div>
+        <div class="compare-card" style="background:var(--purple-50)">
+          <p style="font-size:12px;font-weight:700;color:var(--purple-800);margin-bottom:6px">형용사 관형사형 (활용)</p>
+          <p style="font-size:13px;margin-bottom:4px">"<strong>예쁜</strong> 꽃" ← 예쁘다<br>"<strong>빠른</strong> 차" ← 빠르다</p>
+          <p style="font-size:12px;color:var(--purple-600)">원형으로 되돌릴 수 있음 → 형용사</p>
+        </div>
+      </div>
+      <div class="tip">💡 확인법: "-다"를 붙여 말이 되면 형용사 활용. "새다"(X)→관형사 / "예쁘다"(O)→형용사</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:14px;font-weight:700;color:var(--red-600);margin-bottom:8px">⚠ 조사는 반드시 분리해서 분석!</p>
+      <div class="answer-box">
+        틀린 분석: "학교에서" → 명사<br>
+        바른 분석: "학교"(명사, 체언) + "에서"(처소격 조사, 관계언) → <strong>두 개의 품사!</strong>
+      </div>
+      <div class="tip green">✓ 조사는 앞 단어에 붙여 쓰지만 별개의 품사. 품사 분석 시 반드시 쪼개서 써야 합니다.</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:14px;font-weight:700;color:var(--red-600);margin-bottom:8px">⚠ 같은 단어라도 쓰임에 따라 품사가 달라진다!</p>
+      <div style="overflow-x:auto">
+        <table class="tbl">
+          <thead><tr><th>단어</th><th>예문 1 (품사 A)</th><th>예문 2 (품사 B)</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600">모두</td><td>학생이 <strong>모두</strong> 왔다 → <span style="color:var(--coral-800)">부사</span></td><td><strong>모두</strong> 열 명이다 → <span style="color:var(--amber-800)">수사</span></td></tr>
+            <tr><td style="font-weight:600">하나</td><td>사과 <strong>하나</strong>를 먹었다 → <span style="color:var(--amber-800)">수사</span></td><td>우리는 <strong>하나</strong>다 → <span style="color:var(--amber-800)">수사</span></td></tr>
+            <tr><td style="font-weight:600">빨리</td><td><strong>빨리</strong> 달려라 → <span style="color:var(--coral-800)">부사</span></td><td>(부사로만 쓰임)</td></tr>
+            <tr><td style="font-weight:600">이</td><td><strong>이</strong> 사람이 왔다 → <span style="color:var(--green-800)">관형사</span></td><td>꽃<strong>이</strong> 피었다 → <span style="color:var(--gray-800)">조사</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip amber">⚡ 핵심: 품사는 단어 자체가 아니라 <strong>문장 속 쓰임(기능)</strong>으로 판단합니다!</div>
+    </div>
+  </div>
+
+  <!-- ④ 문장 분석 -->
+  <div id="t4" class="tab-content">
+    <div class="section-title">단어를 눌러 품사 확인 (총 8문장)</div>
+    <div class="card">
+      <div class="sent-btns" id="sentBtns"></div>
+      <div class="sent-area" id="sentArea"></div>
+    </div>
+    <div class="popup-box" id="popupBox"></div>
+    <div class="section-title">색상 범례</div>
+    <div class="card">
+      <div class="legend">
+        <span class="chip" style="background:var(--blue-50);color:var(--blue-800);border:1px solid var(--blue-100)">명사(체언)</span>
+        <span class="chip" style="background:#dceefa;color:var(--blue-800);border:1px solid var(--blue-100)">대명사(체언)</span>
+        <span class="chip" style="background:var(--amber-50);color:var(--amber-800);border:1px solid var(--amber-200)">수사(체언)</span>
+        <span class="chip" style="background:var(--green-50);color:var(--green-800);border:1px solid var(--green-200)">관형사(수식언)</span>
+        <span class="chip" style="background:var(--coral-50);color:var(--coral-800);border:1px solid var(--coral-200)">부사(수식언)</span>
+        <span class="chip" style="background:var(--gray-50);color:var(--gray-800);border:1px solid var(--gray-200)">조사(관계언)</span>
+        <span class="chip" style="background:var(--pink-50);color:var(--pink-800);border:1px solid var(--pink-200)">감탄사(독립언)</span>
+        <span class="chip" style="background:var(--teal-50);color:var(--teal-900);border:1px solid var(--teal-200)">동사(용언)</span>
+        <span class="chip" style="background:var(--purple-50);color:var(--purple-800);border:1px solid var(--purple-200)">형용사(용언)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ 빈칸 채우기 -->
+  <div id="t5" class="tab-content">
+    <div class="section-title">빈칸에 알맞은 품사나 묶음 이름을 써 보세요</div>
+    <div id="blankArea"></div>
+  </div>
+
+  <!-- ⑥ 답안 연습 -->
+  <div id="t6" class="tab-content">
+    <div class="section-title">수행평가 5항목 모범 답안</div>
+
+    <div class="card">
+      <p style="font-size:13px;font-weight:700;color:var(--blue-600);margin-bottom:8px">① 품사의 개념과 분류 기준 설명하기</p>
+      <div class="answer-box">품사란 단어를 공통된 성질에 따라 나눈 갈래입니다. 분류 기준은 세 가지로, 첫째 <strong>의미</strong>(단어가 나타내는 뜻), 둘째 <strong>기능</strong>(문장 안에서 하는 역할), 셋째 <strong>형태</strong>(형태 변화 여부)입니다. 이 기준에 따라 국어의 품사는 명사·대명사·수사·동사·형용사·관형사·부사·조사·감탄사의 9가지로 나뉩니다.</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:13px;font-weight:700;color:var(--blue-600);margin-bottom:8px">② 품사의 종류와 특징 설명하기 (5묶음 중심)</p>
+      <div class="answer-box">9품사는 기능에 따라 5가지 묶음으로 정리됩니다. <strong>체언</strong>(명사·대명사·수사)은 주어·목적어 역할을 하며 조사와 결합합니다. <strong>용언</strong>(동사·형용사)은 서술어 역할을 하며 형태가 변합니다(활용). <strong>수식언</strong>(관형사·부사)은 다른 말을 꾸며 줍니다. <strong>관계언</strong>(조사)은 단어 사이의 문법적 관계를 나타냅니다. <strong>독립언</strong>(감탄사)은 다른 단어와 무관하게 독립적으로 쓰입니다.</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:13px;font-weight:700;color:var(--blue-600);margin-bottom:8px">③ 제시 자료에서 품사 분석하기 (예시 답안)</p>
+      <div class="answer-box">
+        문장: "새 책이 매우 재미있다."<br><br>
+        • 새 → <strong>관형사</strong>(수식언): 뒤의 체언 '책'을 꾸며 줌. 형태 변화 없고, "새다"라는 원형이 없으므로 관형사.<br>
+        • 책 → <strong>명사</strong>(체언): 사물의 이름을 나타내는 자립 명사.<br>
+        • 이 → <strong>조사</strong>(관계언): '책' 뒤에 붙어 주격을 나타내는 격조사.<br>
+        • 매우 → <strong>부사</strong>(수식언): 뒤의 형용사 '재미있다'를 꾸며 주는 성분 부사.<br>
+        • 재미있다 → <strong>형용사</strong>(용언): 상태를 나타냄. "재미있어라"처럼 명령형이 불가능하므로 형용사.
+      </div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:13px;font-weight:700;color:var(--blue-600);margin-bottom:8px">④⑤ 조건 문장 만들기 + 품사 분석 (예시 3가지)</p>
+      <div class="answer-box" style="margin-bottom:8px">
+        <strong>[조건] 체언·용언·수식언 각 1개 이상 포함</strong><br>
+        문장: "우리는 매우 빠르게 달렸다."<br>
+        <span class="chip" style="background:#dceefa;color:var(--blue-800);border:1px solid var(--blue-100)">우리</span><small style="color:var(--text-s)">대명사(체언)</small>
+        <span class="chip" style="background:var(--gray-50);color:var(--gray-800);border:1px solid var(--gray-200)">는</span><small style="color:var(--text-s)">조사(관계언)</small>
+        <span class="chip" style="background:var(--coral-50);color:var(--coral-800);border:1px solid var(--coral-200)">매우</span><small style="color:var(--text-s)">부사(수식언)</small>
+        <span class="chip" style="background:var(--coral-50);color:var(--coral-800);border:1px solid var(--coral-200)">빠르게</span><small style="color:var(--text-s)">형용사→부사형</small>
+        <span class="chip" style="background:var(--teal-50);color:var(--teal-900);border:1px solid var(--teal-200)">달렸다</span><small style="color:var(--text-s)">동사(용언)</small>
+      </div>
+      <div class="answer-box" style="margin-bottom:8px">
+        <strong>[조건] 관형사·명사·감탄사 포함</strong><br>
+        문장: "와, 새 신발이 정말 예쁘다!"<br>
+        <span class="chip" style="background:var(--pink-50);color:var(--pink-800);border:1px solid var(--pink-200)">와</span><small style="color:var(--text-s)">감탄사(독립언)</small>
+        <span class="chip" style="background:var(--green-50);color:var(--green-800);border:1px solid var(--green-200)">새</span><small style="color:var(--text-s)">관형사(수식언)</small>
+        <span class="chip" style="background:var(--blue-50);color:var(--blue-800);border:1px solid var(--blue-100)">신발</span><small style="color:var(--text-s)">명사(체언)</small>
+        <span class="chip" style="background:var(--gray-50);color:var(--gray-800);border:1px solid var(--gray-200)">이</span><small style="color:var(--text-s)">조사(관계언)</small>
+        <span class="chip" style="background:var(--coral-50);color:var(--coral-800);border:1px solid var(--coral-200)">정말</span><small style="color:var(--text-s)">부사(수식언)</small>
+        <span class="chip" style="background:var(--purple-50);color:var(--purple-800);border:1px solid var(--purple-200)">예쁘다</span><small style="color:var(--text-s)">형용사(용언)</small>
+      </div>
+      <div class="answer-box">
+        <strong>[조건] 수사·동사·부사 포함</strong><br>
+        문장: "나는 사과 셋을 빠르게 먹었다."<br>
+        <span class="chip" style="background:#dceefa;color:var(--blue-800);border:1px solid var(--blue-100)">나</span><small style="color:var(--text-s)">대명사(체언)</small>
+        <span class="chip" style="background:var(--blue-50);color:var(--blue-800);border:1px solid var(--blue-100)">사과</span><small style="color:var(--text-s)">명사(체언)</small>
+        <span class="chip" style="background:var(--amber-50);color:var(--amber-800);border:1px solid var(--amber-200)">셋</span><small style="color:var(--text-s)">수사(체언)</small>
+        <span class="chip" style="background:var(--coral-50);color:var(--coral-800);border:1px solid var(--coral-200)">빠르게</span><small style="color:var(--text-s)">부사(수식언)</small>
+        <span class="chip" style="background:var(--teal-50);color:var(--teal-900);border:1px solid var(--teal-200)">먹었다</span><small style="color:var(--text-s)">동사(용언)</small>
+      </div>
+      <div class="tip">💡 답안 서술 팁: "∼는 ∼(품사)입니다. 왜냐하면 ∼하기 때문입니다." 형식으로 <strong>근거를 함께</strong> 쓰면 A등급!</div>
+    </div>
+  </div>
+
+  <!-- ⑦ 퀴즈 20문제 -->
+  <div id="t7" class="tab-content">
+    <div class="section-title">교과서 기출 유형 퀴즈 — 총 20문제</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div id="quizArea"></div>
+    <div class="score-grid" id="scoreGrid" style="display:none">
+      <div class="score-cell"><div class="score-num" id="sc">0</div><div class="score-lbl">정답</div></div>
+      <div class="score-cell"><div class="score-num" id="st">20</div><div class="score-lbl">전체</div></div>
+      <div class="score-cell"><div class="score-num" id="sp">0%</div><div class="score-lbl">정답률</div></div>
+    </div>
+  </div>
+
+  <div class="footer">미래엔(민병곤) 국어 1-1 · 3단원 (1) 단어의 갈래 · 수행평가 대비 자료</div>
+</div>
+
+<script>
+// ── 5묶음 데이터 ──
+const groups = [
+  { name:'체언 (體言)', bg:'var(--blue-50)', tc:'var(--blue-800)', bc:'var(--blue-100)',
+    items:[
+      { pos:'명사', def:'사람·사물·장소 등의 이름을 나타내는 단어',
+        ex:['학교','사랑','행복','나무','사람','하늘','바람'],
+        sub:[{k:'자립명사',v:'홀로 쓰일 수 있는 명사 — 나무, 하늘, 학교'},{k:'의존명사',v:'앞에 꾸미는 말이 반드시 필요 — 것, 수, 줄, 바, 지'}],
+        tip:'의존명사는 앞말과 띄어 씀! 예) "할 수 있다"의 "수"는 의존명사' },
+      { pos:'대명사', def:'명사를 대신하여 사람·사물·장소를 가리키는 단어',
+        ex:['나','너','우리','그','이것','저것','여기','거기'],
+        sub:[{k:'인칭 대명사',v:'사람을 가리킴 — 나, 너, 우리, 그, 당신'},{k:'지시 대명사',v:'사물·장소 가리킴 — 이것, 저것, 여기, 저기'}],
+        tip:'재귀 대명사 "자기, 자신"도 대명사! 앞에 나온 사람을 다시 가리킬 때 사용' },
+      { pos:'수사', def:'수량이나 순서를 나타내는 단어',
+        ex:['하나','둘','셋','넷','첫째','둘째','셋째'],
+        sub:[{k:'양수사',v:'수량 표현 — 하나, 둘, 셋, 넷, 다섯'},{k:'서수사',v:'순서 표현 — 첫째, 둘째, 셋째, 넷째'}],
+        tip:'"두 권"의 두=수 관형사 / "둘이 있다"의 둘=수사! 뒤에 단위명사 있으면 관형사' }
+    ]
+  },
+  { name:'용언 (用言)', bg:'var(--teal-50)', tc:'var(--teal-800)', bc:'var(--teal-200)',
+    items:[
+      { pos:'동사', def:'사람이나 사물의 움직임·작용을 나타내는 단어',
+        ex:['먹다','자다','달리다','공부하다','오다','쓰다','읽다'],
+        sub:[{k:'자동사',v:'목적어 없이 쓰임 — 자다, 웃다, 울다'},{k:'타동사',v:'목적어 필요 — 먹다, 읽다, 쓰다'},{k:'보조동사',v:'-아/어 주다, -고 싶다, -고 있다'}],
+        tip:'명령형("-어라") 가능 / 진행형("-고 있다") 가능 → 동사' },
+      { pos:'형용사', def:'사람이나 사물의 성질·상태를 나타내는 단어',
+        ex:['예쁘다','크다','빠르다','있다','없다','많다','좋다'],
+        sub:[{k:'성상 형용사',v:'성질·상태 — 예쁘다, 크다, 빠르다'},{k:'지시 형용사',v:'가리킴 — 이러하다, 그러하다, 저러하다'}],
+        tip:'"있다·없다·많다·적다·같다·다르다·좋다·싫다·필요하다" 모두 형용사!' }
+    ]
+  },
+  { name:'수식언 (修飾言)', bg:'var(--green-50)', tc:'var(--green-800)', bc:'var(--green-200)',
+    items:[
+      { pos:'관형사', def:'체언(명사·대명사·수사) 앞에서 꾸며 주는 단어',
+        ex:['새','헌','옛','모든','어느','이','그','저','한','두','세'],
+        sub:[{k:'성상 관형사',v:'성질·상태 — 새, 헌, 옛, 순(純)'},{k:'지시 관형사',v:'가리킴 — 이, 그, 저, 어느'},{k:'수 관형사',v:'수량 — 한, 두, 세, 네, 모든'}],
+        tip:'형태 변화 없음! "아름다운"은 형용사의 관형사형이지 관형사가 아님' },
+      { pos:'부사', def:'용언이나 다른 부사·문장 전체를 꾸며 주는 단어',
+        ex:['매우','빨리','과연','설마','그러나','그리고','함께','잘'],
+        sub:[{k:'성분 부사',v:'특정 성분 꾸밈 — 매우, 빨리, 너무, 잘'},{k:'문장 부사',v:'문장 전체 꾸밈 — 과연, 설마, 다행히'},{k:'접속 부사',v:'문장 이어 줌 — 그러나, 그리고, 또한, 하지만'}],
+        tip:'접속 부사는 문장과 문장을 이어 주는 역할도 함!' }
+    ]
+  },
+  { name:'관계언 (關係言)', bg:'var(--gray-50)', tc:'var(--gray-800)', bc:'var(--gray-200)',
+    items:[
+      { pos:'조사', def:'체언 뒤에 붙어 문법적 관계를 나타내거나 특별한 의미를 더하는 단어',
+        ex:['이/가','을/를','의','에서','에게','은/는','도','만','까지','와/과'],
+        sub:[{k:'격조사',v:'문법적 관계 — 이/가(주격), 을/를(목적격), 의(관형격), 에·에서(처소), 에게(여격), 로(방향)'},{k:'보조사',v:'특별한 의미 추가 — 은/는(대조), 도(첨가), 만(단독), 까지(범위), 부터(시작), 마저(추가)'},{k:'접속조사',v:'단어 연결 — 와/과, 이랑, 하고'}],
+        tip:'단독으로 못 쓰이지만 별개의 품사! 품사 분석 시 반드시 앞 단어와 분리' }
+    ]
+  },
+  { name:'독립언 (獨立言)', bg:'var(--pink-50)', tc:'var(--pink-800)', bc:'var(--pink-200)',
+    items:[
+      { pos:'감탄사', def:'감정·놀람·의지·대답 등을 나타내는 독립적인 단어',
+        ex:['아','어머','이런','글쎄','자','여보세요','네','아니요','응'],
+        sub:[{k:'감정 감탄사',v:'감정·느낌 — 아, 어머, 이런, 아이고'},{k:'의지 감탄사',v:'의지·명령 — 자, 여보세요, 쉿'},{k:'대답 감탄사',v:'대답·응답 — 네, 아니요, 응, 글쎄'}],
+        tip:'다른 문장 성분과 문법적 관계 없음. 문장 앞에 독립적으로 위치!' }
+    ]
+  }
+];
+
+function showGroup(i) {
+  const g = groups[i];
+  document.querySelectorAll('.group-card').forEach((c, j) => {
+    c.style.borderColor = j === i ? g.tc : 'transparent';
+  });
+  let html = `<p style="font-size:15px;font-weight:700;color:${g.tc};margin-bottom:12px">${g.name}</p>`;
+  g.items.forEach(it => {
+    html += `<div style="margin-bottom:10px;padding:11px 14px;background:var(--bg);border-radius:var(--r-m);border:1px solid var(--bd)">
+      <p style="font-size:13px;font-weight:700;margin-bottom:5px">${it.pos} — <span style="font-weight:400">${it.def}</span></p>
+      <div style="margin-bottom:8px">${it.ex.map(e=>`<span class="pill" style="background:${g.bg};color:${g.tc};border:1px solid ${g.bc}">${e}</span>`).join('')}</div>
+      <div style="margin-bottom:8px">${it.sub.map(s=>`<div style="font-size:12px;margin:2px 0;color:var(--text-s)"><strong style="color:${g.tc}">${s.k}</strong>: ${s.v}</div>`).join('')}</div>
+      <div class="tip">💡 ${it.tip}</div>
+    </div>`;
+  });
+  document.getElementById('groupDetail').innerHTML = html;
+}
+
+// ── 문장 분석 데이터 — 교과서(미래엔 민병곤 1-1) 실제 예문 ──
+const sents = [
+  // 교과서 112쪽 탐구1 예문
+  { label:'[교과서 112쪽] 사과를 먹다. / 사과를 먹고 이를 닦았다.',
+    note:'교과서 탐구1 — 형태가 변하는 단어 vs 변하지 않는 단어',
+    words:[
+      {w:'사과를',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'사과(명사, 체언) + 를(목적격 조사, 관계언) — "사과"는 어떤 문장에서도 형태가 변하지 않는 불변어.'},
+      {w:'먹다',pos:'동사',group:'용언(가변어)',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "먹고", "먹으니"처럼 형태가 다양하게 변함 → 가변어. 교과서 핵심 예시!'},
+      {w:'이를',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'이(명사, 체언) + 를(목적격 조사, 관계언)'},
+      {w:'닦았다.',pos:'동사',group:'용언(가변어)',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "닦다"의 과거형 활용. 형태가 변하는 가변어.'}
+    ]
+  },
+  // 교과서 113쪽 탐구2 예문
+  { label:'[교과서 113쪽] 떡볶이가 아주 맛있다.',
+    note:'교과서 탐구2 — 문장의 몸통 역할 vs 꾸며 주는 역할',
+    words:[
+      {w:'떡볶이가',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'떡볶이(명사, 체언) + 가(주격 조사, 관계언) — 교과서에서 "문장의 몸통 역할"을 하는 단어의 예시.'},
+      {w:'아주',pos:'부사',group:'수식언',bg:'var(--coral-50)',tc:'var(--coral-800)',desc:'성분 부사(수식언) — "맛있다"를 꾸며 주는 역할. 교과서에서 "꾸며 주는 역할"의 예시로 제시됨.'},
+      {w:'맛있다.',pos:'형용사',group:'용언',bg:'var(--purple-50)',tc:'var(--purple-800)',desc:'형용사(용언) — 상태를 나타냄. "맛있어라"처럼 명령형 불가능 → 형용사.'}
+    ]
+  },
+  // 교과서 117쪽 대화 예문
+  { label:'[교과서 117쪽] 주희야, 도서관으로 올래? 나 제하랑 있어. 너도 여기로 책 가지고 와.',
+    note:'교과서 확인1-1 — 명사 찾기 + 대명사 찾기 예문',
+    words:[
+      {w:'주희야,',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'주희(명사) + 야(호격 조사) — ⚠ "주희야" 전체가 감탄사가 아님! 명사+조사 두 단어임.'},
+      {w:'도서관으로',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'도서관(명사, 체언) + 으로(방향격 조사, 관계언)'},
+      {w:'나',pos:'대명사',group:'체언',bg:'#dceefa',tc:'var(--blue-800)',desc:'1인칭 대명사(체언) — 말하는 사람 자신을 가리킴. 교과서 대명사 예시.'},
+      {w:'제하랑',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'제하(명사, 체언) + 랑(접속조사, 관계언)'},
+      {w:'너도',pos:'대명사+조사',group:'체언+관계언',bg:'#dceefa',tc:'var(--blue-800)',desc:'너(2인칭 대명사, 체언) + 도(보조사, 관계언) — 교과서에서 명사 대신 쓰인 대명사 예시.'},
+      {w:'여기로',pos:'대명사+조사',group:'체언+관계언',bg:'#dceefa',tc:'var(--blue-800)',desc:'여기(지시 대명사, 체언) + 로(방향격 조사, 관계언) — 장소를 대신 가리키는 대명사.'},
+      {w:'책',pos:'명사',group:'체언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'명사(체언) — 사물의 이름을 나타내는 자립 명사.'},
+      {w:'가지고',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "가지다"의 활용형. 움직임을 나타냄.'},
+      {w:'와.',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "오다"의 명령형 활용. 명령형 가능 → 동사 확인.'}
+    ]
+  },
+  // 교과서 118쪽 수사 예문
+  { label:'[교과서 118쪽] 삼과 사를 더하면 칠이다. / 첫째, 감자를 깎고, 둘째, 썰고, 셋째, 볶는다.',
+    note:'교과서 확인1-3 — 수사 찾기',
+    words:[
+      {w:'삼과',pos:'수사+조사',group:'체언+관계언',bg:'var(--amber-50)',tc:'var(--amber-800)',desc:'삼(수사, 체언) + 과(접속조사, 관계언) — 수량을 나타내는 양수사.'},
+      {w:'사를',pos:'수사+조사',group:'체언+관계언',bg:'var(--amber-50)',tc:'var(--amber-800)',desc:'사(수사, 체언) + 를(목적격 조사, 관계언) — 양수사.'},
+      {w:'더하면',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "더하다"의 활용형.'},
+      {w:'칠이다.',pos:'수사+조사',group:'체언+관계언',bg:'var(--amber-50)',tc:'var(--amber-800)',desc:'칠(수사, 체언) + 이다(서술격 조사) — ⚠ "이다"는 조사이지만 형태가 변할 수 있음(교과서 주의사항).'},
+      {w:'첫째,',pos:'수사',group:'체언',bg:'var(--amber-50)',tc:'var(--amber-800)',desc:'서수사(체언) — 순서를 나타내는 수사. 교과서 확인1-3 예시.'},
+      {w:'둘째,',pos:'수사',group:'체언',bg:'var(--amber-50)',tc:'var(--amber-800)',desc:'서수사(체언) — 순서를 나타내는 수사.'},
+      {w:'셋째,',pos:'수사',group:'체언',bg:'var(--amber-50)',tc:'var(--amber-800)',desc:'서수사(체언) — 순서를 나타내는 수사.'}
+    ]
+  },
+  // 교과서 119쪽 동사/형용사 탐구 예문
+  { label:'[교과서 119쪽] 저기 봐! 풍선이 날아간다. / 우아! 풍선이 예쁘다.',
+    note:'교과서 탐구2 — 동사 vs 형용사 구분 핵심 예문',
+    words:[
+      {w:'우아!',pos:'감탄사',group:'독립언',bg:'var(--pink-50)',tc:'var(--pink-800)',desc:'감탄사(독립언) — 교과서 탐구2 예문. 놀람·감탄을 나타내며 문장의 다른 성분과 무관하게 쓰임.'},
+      {w:'풍선이',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'풍선(명사, 체언) + 이(주격 조사, 관계언)'},
+      {w:'날아간다.',pos:'동사',group:'용언(가변어)',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — 교과서 동사 핵심 예시! "날아가서", "날아가니"처럼 형태가 변함(활용). 움직임 나타냄.'},
+      {w:'예쁘다.',pos:'형용사',group:'용언(가변어)',bg:'var(--purple-50)',tc:'var(--purple-800)',desc:'형용사(용언) — 교과서 형용사 핵심 예시! "예뻐서", "예쁘니"처럼 형태 변함. "예뻐라"(명령형) 불가능.'}
+    ]
+  },
+  // 교과서 121쪽 관형사 예문
+  { label:'[교과서 121쪽] 새 신발을 신으니 기분이 좋네. / 이 신발 오늘 처음 신었는데!',
+    note:'교과서 탐구3 — 관형사 핵심 예문',
+    words:[
+      {w:'새',pos:'관형사',group:'수식언',bg:'var(--green-50)',tc:'var(--green-800)',desc:'성상 관형사(수식언) — 교과서 관형사 핵심 예시! 뒤의 체언 "신발"을 꾸밈. 형태 변화 없음.'},
+      {w:'신발을',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'신발(명사, 체언) + 을(목적격 조사, 관계언)'},
+      {w:'신으니',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "신다"의 활용형(-으니). 움직임 나타냄.'},
+      {w:'기분이',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'기분(명사, 체언) + 이(주격 조사, 관계언)'},
+      {w:'좋네.',pos:'형용사',group:'용언',bg:'var(--purple-50)',tc:'var(--purple-800)',desc:'형용사(용언) — "좋다"의 활용형. 상태 나타냄. "좋아라"(명령형) 불가능 → 형용사.'},
+      {w:'이',pos:'관형사',group:'수식언',bg:'var(--green-50)',tc:'var(--green-800)',desc:'지시 관형사(수식언) — 교과서 관형사 예시! 뒤의 체언 "신발"을 꾸밈. ⚠ 조사 "이/가"와 혼동 주의.'},
+      {w:'신발',pos:'명사',group:'체언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'명사(체언) — 사물의 이름을 나타냄.'},
+      {w:'오늘',pos:'명사',group:'체언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'명사(체언) — 시간을 나타내는 자립 명사.'},
+      {w:'처음',pos:'명사',group:'체언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'명사(체언) — 이 위치에서는 명사로 쓰임.'},
+      {w:'신었는데!',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "신다"의 과거형 활용.'}
+    ]
+  },
+  // 교과서 122쪽 부사 예문
+  { label:'[교과서 122쪽] 정말 슬프다. / 축구 선수가 빨리 달린다. / 어제는 노을이 무척 아름다웠다.',
+    note:'교과서 확인3-2 — 부사 찾기 예문',
+    words:[
+      {w:'정말',pos:'부사',group:'수식언',bg:'var(--coral-50)',tc:'var(--coral-800)',desc:'성분 부사(수식언) — 교과서 부사 핵심 예시! 뒤의 형용사 "슬프다"를 꾸밈. "정말"은 형태 변화 없음.'},
+      {w:'슬프다.',pos:'형용사',group:'용언',bg:'var(--purple-50)',tc:'var(--purple-800)',desc:'형용사(용언) — 감정·상태를 나타냄. "슬퍼라"(명령형) 불가능 → 형용사.'},
+      {w:'축구',pos:'명사',group:'체언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'명사(체언) — 운동 종목 이름을 나타내는 자립 명사.'},
+      {w:'선수가',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'선수(명사, 체언) + 가(주격 조사, 관계언)'},
+      {w:'빨리',pos:'부사',group:'수식언',bg:'var(--coral-50)',tc:'var(--coral-800)',desc:'성분 부사(수식언) — 교과서 확인3-2 예시. 동사 "달린다"를 꾸밈.'},
+      {w:'달린다.',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — 움직임을 나타냄. "달려라"(명령형) 가능 → 동사 확인.'},
+      {w:'무척',pos:'부사',group:'수식언',bg:'var(--coral-50)',tc:'var(--coral-800)',desc:'성분 부사(수식언) — 교과서 확인3-2 예시. 형용사 "아름다웠다"를 꾸밈.'},
+      {w:'아름다웠다.',pos:'형용사',group:'용언',bg:'var(--purple-50)',tc:'var(--purple-800)',desc:'형용사(용언) — "아름답다"의 과거형 활용. 상태·성질 나타냄.'}
+    ]
+  },
+  // 교과서 123~124쪽 조사 예문
+  { label:'[교과서 123~124쪽] 강아지가 지우를 좋아한다. / 강아지가 지우만 좋아한다.',
+    note:'교과서 탐구4 — 조사의 종류와 기능 핵심 예문',
+    words:[
+      {w:'강아지가',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'강아지(명사, 체언) + 가(주격 조사, 관계언) — 격조사: "강아지"가 주어임을 나타냄.'},
+      {w:'지우를',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'지우(명사, 체언) + 를(목적격 조사, 관계언) — 격조사: "지우"가 목적어임을 나타냄.'},
+      {w:'좋아한다.',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "좋아하다"의 활용형. 행위·작용 나타냄.'},
+      {w:'지우만',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'지우(명사) + 만(보조사) — 교과서 핵심 예시! "만"은 단독의 의미를 더하는 보조사. 격조사 "를"과 다름.'}
+    ]
+  },
+  // 교과서 124쪽 조사 확인 예문
+  { label:'[교과서 124쪽] 혜수가 방을 치웠다. / 게임만 하지 말고, 운동도 좀 해라.',
+    note:'교과서 확인4 — 조사를 모두 찾기',
+    words:[
+      {w:'혜수가',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'혜수(명사) + 가(주격 격조사) — 다른 말과의 문법적 관계를 나타내는 조사.'},
+      {w:'방을',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'방(명사) + 을(목적격 격조사) — 격조사.'},
+      {w:'치웠다.',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "치우다"의 과거형 활용.'},
+      {w:'게임만',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'게임(명사) + 만(보조사) — 특별한 의미(단독)를 더하는 보조사.'},
+      {w:'운동도',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'운동(명사) + 도(보조사) — 특별한 의미(첨가)를 더하는 보조사.'},
+      {w:'좀',pos:'부사',group:'수식언',bg:'var(--coral-50)',tc:'var(--coral-800)',desc:'부사(수식언) — 동사 "해라"를 꾸밈.'},
+      {w:'해라.',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "하다"의 명령형. 명령형 가능 → 동사 확인.'}
+    ]
+  },
+  // 교과서 125쪽 감탄사 예문
+  { label:'[교과서 125쪽] 야! 잘 지냈어? 우아, 너 못 본 사이에 키가 많이 컸다!',
+    note:'교과서 확인5 — 감탄사 찾기',
+    words:[
+      {w:'야!',pos:'감탄사',group:'독립언',bg:'var(--pink-50)',tc:'var(--pink-800)',desc:'감탄사(독립언) — 교과서 확인5 예시. 말하는 이의 느낌(부름)을 나타냄. 다른 성분과 무관.'},
+      {w:'잘',pos:'부사',group:'수식언',bg:'var(--coral-50)',tc:'var(--coral-800)',desc:'성분 부사(수식언) — 동사 "지냈어"를 꾸밈.'},
+      {w:'지냈어?',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "지내다"의 활용형. 움직임·작용 나타냄.'},
+      {w:'우아,',pos:'감탄사',group:'독립언',bg:'var(--pink-50)',tc:'var(--pink-800)',desc:'감탄사(독립언) — 교과서 확인5 예시. 놀라움·감탄의 느낌을 나타냄.'},
+      {w:'너',pos:'대명사',group:'체언',bg:'#dceefa',tc:'var(--blue-800)',desc:'2인칭 대명사(체언) — 상대방을 가리키는 대명사.'},
+      {w:'키가',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'키(명사, 체언) + 가(주격 조사, 관계언)'},
+      {w:'많이',pos:'부사',group:'수식언',bg:'var(--coral-50)',tc:'var(--coral-800)',desc:'성분 부사(수식언) — 동사 "컸다"를 꾸밈.'},
+      {w:'컸다!',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — "크다"가 이 문장에서는 성장하다의 의미로 쓰인 동사. (상태의 형용사 "크다"와 구분!)'}
+    ]
+  },
+  // 교과서 127쪽 수식언 확인 예문
+  { label:'[교과서 127쪽] 나는 옛 친구 윤하를 자주 생각한다. 그 친구도 나를 생각해 주면 참 좋겠다.',
+    note:'교과서 확인4 — 관형사와 부사 나누기',
+    words:[
+      {w:'나는',pos:'대명사+조사',group:'체언+관계언',bg:'#dceefa',tc:'var(--blue-800)',desc:'나(1인칭 대명사) + 는(보조사)'},
+      {w:'옛',pos:'관형사',group:'수식언',bg:'var(--green-50)',tc:'var(--green-800)',desc:'성상 관형사(수식언) — 교과서 확인4 예시! 뒤의 명사 "친구"를 꾸밈. 형태 변화 없음.'},
+      {w:'친구',pos:'명사',group:'체언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'명사(체언) — 자립 명사.'},
+      {w:'윤하를',pos:'명사+조사',group:'체언+관계언',bg:'var(--blue-50)',tc:'var(--blue-800)',desc:'윤하(명사) + 를(목적격 조사)'},
+      {w:'자주',pos:'부사',group:'수식언',bg:'var(--coral-50)',tc:'var(--coral-800)',desc:'성분 부사(수식언) — 교과서 확인4 예시! 동사 "생각한다"를 꾸밈.'},
+      {w:'생각한다.',pos:'동사',group:'용언',bg:'var(--teal-50)',tc:'var(--teal-900)',desc:'동사(용언) — 행위·작용 나타냄.'},
+      {w:'그',pos:'관형사',group:'수식언',bg:'var(--green-50)',tc:'var(--green-800)',desc:'지시 관형사(수식언) — 교과서 확인4 예시! 뒤의 명사 "친구"를 꾸밈.'},
+      {w:'참',pos:'부사',group:'수식언',bg:'var(--coral-50)',tc:'var(--coral-800)',desc:'성분 부사(수식언) — 교과서 확인4 예시! 형용사 "좋겠다"를 꾸밈.'},
+      {w:'좋겠다.',pos:'형용사',group:'용언',bg:'var(--purple-50)',tc:'var(--purple-800)',desc:'형용사(용언) — "좋다"의 활용형. 상태 나타냄. "좋아라"(명령형) 불가능 → 형용사.'}
+    ]
+  }
+];
+
+let curSent = 0;
+function buildSentBtns() {
+  const c = document.getElementById('sentBtns');
+  sents.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.className = 'sent-btn' + (i===0?' active':'');
+    b.textContent = '문장 ' + (i+1);
+    b.onclick = () => loadSent(i, b);
+    c.appendChild(b);
+  });
+}
+function loadSent(i, btn) {
+  curSent = i;
+  document.querySelectorAll('.sent-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const sa = document.getElementById('sentArea');
+  const s = sents[i];
+  sa.innerHTML =
+    '<div style="font-size:11px;color:var(--blue-600);font-weight:600;margin-bottom:4px;background:var(--blue-50);padding:4px 8px;border-radius:4px;display:inline-block">' + (s.note||'') + '</div>' +
+    '<div style="font-size:13px;color:var(--text-s);margin:6px 0 8px;font-style:italic">' + s.label + '</div>' +
+    s.words.map((w, j) =>
+      `<span class="sent-word" style="border-color:${w.tc}" onclick="showPopup(${j})">${w.w}</span>`
+    ).join(' ');
+  document.getElementById('popupBox').classList.remove('show');
+}
+function showPopup(j) {
+  const w = sents[curSent].words[j];
+  const pb = document.getElementById('popupBox');
+  pb.innerHTML = `<span style="background:${w.bg};color:${w.tc};padding:2px 10px;border-radius:5px;font-weight:700">${w.w}</span>
+    <strong style="margin-left:8px">${w.pos}</strong>
+    <span style="color:var(--text-t);font-size:12px;margin-left:4px">(${w.group})</span>
+    <p style="margin-top:8px;color:var(--text-s);font-size:13px">${w.desc}</p>`;
+  pb.classList.add('show');
+  document.querySelectorAll('.sent-word').forEach((el, idx) => {
+    el.style.background = idx === j ? w.bg : '';
+  });
+}
+buildSentBtns();
+loadSent(0, null);
+
+// ── 빈칸 채우기 — 교과서(미래엔 민병곤 1-1) 실제 문제 기반 ──
+const blanks = [
+  { sent:'[교과서 112쪽] 고양이가 정말 작고 귀엽다.',
+    label:'교과서 문제로 더하기+ ① — 형태 기준 분류',
+    items:[
+      {word:'고양이가', answer:['명사+조사','명사'], hint:'고양이(___)+가(조사). 형태가 변하지 않는 단어.'},
+      {word:'정말', answer:['부사'], hint:'용언을 꾸며 주는 ___ (형태 변화 없음)'},
+      {word:'작고', answer:['형용사'], hint:'"작다"의 활용형. 형태가 변하는 ___ (가변어)'},
+      {word:'귀엽다', answer:['형용사'], hint:'"귀여워라" 명령형 불가능 → 상태를 나타내는 ___'}
+    ]
+  },
+  { sent:'[교과서 113쪽] 그 배우는 꽤 유명하다.',
+    label:'교과서 문제로 더하기+ ② — 기능 기준 분류',
+    items:[
+      {word:'그', answer:['관형사'], hint:'체언 앞에서 꾸며 주는 지시 ___ (수식언)'},
+      {word:'배우는', answer:['명사+조사','명사'], hint:'배우(___)+는(조사). 문장의 몸통 역할.'},
+      {word:'꽤', answer:['부사'], hint:'용언을 꾸며 주는 ___ (수식언)'},
+      {word:'유명하다', answer:['형용사'], hint:'상태를 나타내며 명령형 불가능 → ___'}
+    ]
+  },
+  { sent:'[교과서 126쪽] 나는 현규와 옥수수 하나를 나누어 먹었다. 그것은 정말 맛있었다.',
+    label:'교과서 문제로 더하기+ ② — 명사·대명사·수사 찾기',
+    items:[
+      {word:'나', answer:['대명사'], hint:'1인칭 ___ (체언)'},
+      {word:'현규', answer:['명사'], hint:'사람 이름 → ___'},
+      {word:'옥수수', answer:['명사'], hint:'사물의 이름 → ___'},
+      {word:'하나', answer:['수사'], hint:'수량을 나타내며 홀로 쓰임 → ___ (뒤에 단위명사 없음!)'},
+      {word:'그것', answer:['대명사'], hint:'앞의 명사를 대신 가리키는 지시 ___'}
+    ]
+  },
+  { sent:'[교과서 127쪽] 나는 옛 친구 윤하를 자주 생각한다. 그 친구도 나를 생각해 주면 참 좋겠다.',
+    label:'교과서 확인4 — 수식언(관형사·부사) 찾기',
+    items:[
+      {word:'옛', answer:['관형사'], hint:'뒤의 체언 "친구"를 꾸미는 성상 ___'},
+      {word:'자주', answer:['부사'], hint:'동사 "생각한다"를 꾸미는 성분 ___'},
+      {word:'그', answer:['관형사'], hint:'뒤의 체언 "친구"를 꾸미는 지시 ___'},
+      {word:'참', answer:['부사'], hint:'형용사 "좋겠다"를 꾸미는 성분 ___'}
+    ]
+  },
+  { sent:'[교과서 127쪽] 재우가 과자를 하나만 사 왔다.',
+    label:'교과서 확인5 — 조사를 기준에 따라 나누기',
+    items:[
+      {word:'재우가', answer:['명사+조사','격조사'], hint:'재우(명사) + 가 → 다른 말과의 문법적 관계를 나타내는 ___ (격조사)'},
+      {word:'과자를', answer:['명사+조사','격조사'], hint:'과자(명사) + 를 → 목적어임을 나타내는 ___ (격조사)'},
+      {word:'하나만', answer:['수사+조사','보조사'], hint:'하나(수사) + 만 → 특별한 의미(단독)를 더해 주는 ___ (보조사)'}
+    ]
+  },
+  { sent:'[교과서 127쪽] (1) 네, 알겠습니다. (2) 오, 이 책 정말 재밌네. (3) 여보세요, 진우네 집이죠?',
+    label:'교과서 확인6 — 감탄사와 그 종류',
+    items:[
+      {word:'네', answer:['감탄사'], hint:'대답을 나타내는 ___ (독립언)'},
+      {word:'오', answer:['감탄사'], hint:'느낌을 나타내는 ___ (독립언)'},
+      {word:'여보세요', answer:['감탄사'], hint:'부름을 나타내는 ___ (독립언)'},
+      {word:'정말', answer:['부사'], hint:'형용사 "재밌네"를 꾸미는 성분 ___'}
+    ]
+  }
+];
+
+function buildBlanks() {
+  const area = document.getElementById('blankArea');
+  blanks.forEach((b, bi) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.style.marginBottom = '12px';
+    let html = `<div style="font-size:11px;color:var(--blue-600);font-weight:600;background:var(--blue-50);padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:8px">${b.label||''}</div>
+      <p style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--text)">${bi+1}. "${b.sent}"</p>`;
+    b.items.forEach((it, ii) => {
+      html += `<div style="margin-bottom:10px;padding:8px 10px;background:var(--bg-s);border-radius:var(--r-m)">
+        <span style="font-size:13px;font-weight:600;margin-right:8px">${it.word}</span>
+        <span style="font-size:12px;color:var(--text-s)">→ </span>
+        <input class="blank-input" id="bi${bi}_${ii}" placeholder="품사" onkeydown="if(event.key==='Enter')checkBlank(${bi},${ii})">
+        <span style="font-size:11px;color:var(--text-t);margin-left:8px">(힌트: ${it.hint})</span>
+        <div class="blank-result" id="br${bi}_${ii}"></div>
+      </div>`;
+    });
+    html += `<button class="check-btn" onclick="checkAllBlanks(${bi})">전체 확인</button>
+      <div class="blank-result" id="bscore${bi}" style="margin-top:8px;font-size:13px"></div>`;
+    div.innerHTML = html;
+    area.appendChild(div);
+  });
+}
+
+function checkBlank(bi, ii) {
+  const val = document.getElementById(`bi${bi}_${ii}`).value.trim().replace(/\s+/g,'');
+  const answers = blanks[bi].items[ii].answer;
+  const inp = document.getElementById(`bi${bi}_${ii}`);
+  const res = document.getElementById(`br${bi}_${ii}`);
+  const ok = answers.some(a => val === a.replace(/\s+/g,'') || val === a.replace(/[+·]/g,''));
+  inp.className = 'blank-input ' + (ok ? 'correct' : 'wrong');
+  res.textContent = ok ? '✓ 정답!' : `✗ 정답: ${answers[0]}`;
+  res.style.color = ok ? 'var(--green-600)' : 'var(--red-600)';
+}
+
+function checkAllBlanks(bi) {
+  let corr = 0;
+  blanks[bi].items.forEach((it, ii) => {
+    checkBlank(bi, ii);
+    const res = document.getElementById(`br${bi}_${ii}`);
+    if (res.style.color === 'var(--green-600)') corr++;
+  });
+  const sc = document.getElementById(`bscore${bi}`);
+  sc.textContent = `점수: ${corr}/${blanks[bi].items.length}`;
+  sc.style.color = corr === blanks[bi].items.length ? 'var(--green-600)' : 'var(--text-s)';
+}
+
+buildBlanks();
+
+// ── 퀴즈 — 교과서(미래엔 민병곤 1-1) 기반 문제 ──
+const quizzes = [
+  // 교과서 문제로 더하기+ 126쪽 ①
+  {q:'[교과서] "고양이가 정말 작고 귀엽다."에서 형태가 변하는 단어는?',
+   opts:['고양이가, 정말','작고, 귀엽다','고양이, 정말, 귀엽다','정말, 작고'],
+   ans:1, exp:'동사·형용사(용언)는 형태가 변하는 가변어. "작고"는 "작다"의, "귀엽다"는 원형. 교과서 112쪽 핵심 개념.'},
+  // 교과서 113쪽 탐구2
+  {q:'[교과서] "그 배우는 꽤 유명하다."에서 문장의 몸통 역할을 하는 단어는?',
+   opts:['그, 꽤','배우','유명하다','꽤, 유명하다'],
+   ans:1, exp:'"배우"는 명사(체언)로 주어 역할 → 문장의 몸통. "그"는 관형사, "꽤"는 부사. 교과서 113쪽 탐구2.'},
+  // 교과서 119쪽 탐구2 — 동사/형용사 핵심
+  {q:'[교과서] "풍선이 날아간다."와 "풍선이 예쁘다."에서 각각의 품사는?',
+   opts:['날아간다=형용사, 예쁘다=동사','날아간다=동사, 예쁘다=동사','날아간다=동사, 예쁘다=형용사','둘 다 형용사'],
+   ans:2, exp:'교과서 탐구2 핵심 예문. "날아가다"=움직임 → 동사, "예쁘다"=상태 → 형용사. "예뻐라"(X)로 확인.'},
+  // 교과서 120쪽 — 용언의 활용
+  {q:'[교과서] 동사와 형용사를 묶어 용언이라고 하는 이유는?',
+   opts:['형태가 변하지 않기 때문에','조사와 결합하기 때문에','문장에서 쓰일 때 형태가 변할 수 있기 때문에','체언 앞에서 꾸며 주기 때문에'],
+   ans:2, exp:'교과서 120쪽: 용언은 "날아가서", "날아가니", "예뻐서", "예쁘니"처럼 형태가 바뀌어 쓰임 → 이를 "활용"이라 함.'},
+  // 교과서 121쪽 관형사 확인
+  {q:'[교과서] "모든 사람은 귀하다."에서 관형사를 찾으면?',
+   opts:['사람','귀하다','모든','은'],
+   ans:2, exp:'교과서 확인3-1 예시. "모든"은 뒤의 체언 "사람"을 꾸며 주는 수 관형사(수식언). 형태 변화 없음.'},
+  // 교과서 121쪽 — 관형사가 꾸미는 품사
+  {q:'[교과서] "옷을 재활용하여 저 모자를 만들었다."에서 "저"가 꾸며 주는 단어의 품사는?',
+   opts:['동사','형용사','명사','부사'],
+   ans:2, exp:'교과서 확인3-1 예시. "저"(관형사)는 "모자"(명사)를 꾸며 줌. 관형사는 체언(명사·대명사·수사) 앞에 위치.'},
+  // 교과서 123쪽 조사 탐구
+  {q:'[교과서] "강아지가 지우만 좋아한다."에서 "만"이 하는 역할은?',
+   opts:['단어와 단어 사이의 문법적 관계 나타냄','문장에 특별한 의미(단독)를 더함','동사를 꾸며 줌','체언을 대신 가리킴'],
+   ans:1, exp:'교과서 탐구4 핵심 예시. "만"은 보조사로 "지우 하나"라는 단독의 의미를 더함. "를"(격조사)과 다름.'},
+  // 교과서 124쪽 조사 확인
+  {q:'[교과서] "혜수가 방을 치웠다. 게임만 하지 말고, 운동도 좀 해라."에서 보조사를 모두 고르면?',
+   opts:['가, 을','만, 도','가, 만, 을, 도','만'],
+   ans:1, exp:'교과서 확인4. "만"(단독), "도"(첨가)는 특별한 의미를 더하는 보조사. "가", "을"은 격조사.'},
+  // 교과서 125쪽 감탄사
+  {q:'[교과서] "야! 잘 지냈어? 우아, 너 못 본 사이에 키가 많이 컸다!"에서 감탄사를 모두 고르면?',
+   opts:['야, 우아','야, 잘, 우아','우아, 많이','야, 너, 우아'],
+   ans:0, exp:'교과서 확인5. "야"(부름), "우아"(감탄·느낌)가 감탄사(독립언). "잘", "많이"는 부사, "너"는 대명사.'},
+  // 교과서 126쪽 문제로 더하기+ ③ — 동사/형용사
+  {q:'[교과서] "바람이 시원하다."에서 밑줄 친 "시원하다"의 품사는?',
+   opts:['동사','형용사','관형사','부사'],
+   ans:1, exp:'교과서 126쪽 문제로 더하기+ ③. 상태를 나타내며 "시원해라"(X) 명령형 불가능 → 형용사.'},
+  {q:'[교과서] "얼음이 빨리 녹았다."에서 "녹았다"의 품사는?',
+   opts:['형용사','관형사','동사','부사'],
+   ans:2, exp:'교과서 126쪽. "녹아라"처럼 명령형 가능 → 동사. 움직임·작용을 나타내는 용언.'},
+  {q:'[교과서] "나는 너를 믿는다."에서 "믿는다"의 품사는?',
+   opts:['형용사','동사','관형사','감탄사'],
+   ans:1, exp:'교과서 126쪽. "믿어라"처럼 명령형 가능 → 동사. 행위·작용을 나타내는 용언.'},
+  // 교과서 126쪽 품사 분류도 문제
+  {q:'[교과서] 교과서 품사 분류도에서 빈칸 (1)에 들어갈 묶음 이름은? (수식언 — 관형사, 부사를 묶은 것)',
+   opts:['체언','용언','수식언','독립언'],
+   ans:2, exp:'교과서 126쪽 문제로 더하기+ ①. 관형사와 부사를 묶은 것이 수식언(修飾言). 다른 말을 꾸며 주는 역할.'},
+  {q:'[교과서] 교과서 품사 분류도에서 "형태가 변하지 않는 단어" 중 체언에 속하지 않는 것은?',
+   opts:['명사','대명사','수사','감탄사'],
+   ans:3, exp:'교과서 126쪽. 감탄사는 독립언. 체언은 명사·대명사·수사. 감탄사는 불변어지만 독립언(관계언X, 체언X).'},
+  // 교과서 127쪽 수식언 문제
+  {q:'[교과서] "나는 옛 친구 윤하를 자주 생각한다."에서 관형사는?',
+   opts:['자주','나','옛','생각한다'],
+   ans:2, exp:'교과서 확인4. "옛"은 뒤의 체언 "친구"를 꾸미는 성상 관형사(수식언). "자주"는 부사.'},
+  {q:'[교과서] 같은 문장에서 "자주"의 품사와 묶음은?',
+   opts:['관형사—수식언','부사—수식언','동사—용언','조사—관계언'],
+   ans:1, exp:'교과서 확인4. "자주"는 동사 "생각한다"를 꾸며 주는 성분 부사(수식언).'},
+  // 교과서 127쪽 조사 문제
+  {q:'[교과서] "재우가 과자를 하나만 사 왔다."에서 다른 말과의 문법적 관계를 나타내는 조사는?',
+   opts:['만','가, 를','하나','사'],
+   ans:1, exp:'교과서 확인5. "가"(주격 격조사), "를"(목적격 격조사)은 문법적 관계를 나타냄. "만"은 특별한 의미를 더하는 보조사.'},
+  // 교과서 127쪽 감탄사 종류
+  {q:'[교과서] "네, 알겠습니다."에서 "네"가 나타내는 것은?',
+   opts:['느낌','부름','대답','명령'],
+   ans:2, exp:'교과서 확인6. "네"는 대답을 나타내는 감탄사(독립언). "아"=느낌, "여보세요"=부름, "네"=대답.'},
+  {q:'[교과서] "여보세요, 진우네 집이죠?"에서 "여보세요"가 나타내는 것은?',
+   opts:['느낌','부름','대답','놀람'],
+   ans:1, exp:'교과서 확인6. "여보세요"는 부름을 나타내는 감탄사(독립언).'},
+  // 교과서 132쪽 개념 다시 보기 — 종합 문제
+  {q:'[교과서 132쪽] 교과서 개념 정리에 따르면 조사에 대한 설명으로 알맞은 것은?',
+   opts:['형태가 반드시 변하지 않는다','체언 앞에 붙어 꾸며 준다','주로 체언 뒤에 붙어 문법적 관계를 나타내거나 특별한 의미를 더해 준다','사람이나 사물의 수량이나 순서를 나타낸다'],
+   ans:2, exp:'교과서 132쪽 개념 다시 보기 조사 정의. ⚠ "이다"는 조사이지만 형태가 변할 수 있음(교과서 주의사항).'}
+];
+
+let answered = [];
+function buildQuiz() {
+  const qa = document.getElementById('quizArea');
+  quizzes.forEach((q, qi) => {
+    const d = document.createElement('div');
+    d.className = 'card';
+    d.style.marginBottom = '10px';
+    d.innerHTML = `<p class="quiz-q">${qi+1}. ${q.q}</p>
+      <div class="quiz-opts">${q.opts.map((o,oi)=>`<button class="qbtn" onclick="checkQ(${qi},${oi},this)">${o}</button>`).join('')}</div>
+      <div class="qres" id="qr${qi}"></div>`;
+    qa.appendChild(d);
+  });
+}
+buildQuiz();
+
+function checkQ(qi, chosen, btn) {
+  if (answered.includes(qi)) return;
+  answered.push(qi);
+  const q = quizzes[qi];
+  const res = document.getElementById('qr' + qi);
+  btn.parentElement.querySelectorAll('.qbtn')[q.ans].classList.add('ok');
+  if (chosen === q.ans) {
+    res.innerHTML = `✓ 정답! <span style="color:var(--text-t)">${q.exp}</span>`;
+    res.style.color = 'var(--green-600)';
+  } else {
+    btn.classList.add('no');
+    res.innerHTML = `✗ 오답. 정답: <strong>${q.opts[q.ans]}</strong> — <span style="color:var(--text-t)">${q.exp}</span>`;
+    res.style.color = 'var(--red-600)';
+  }
+  const fill = Math.round(answered.length / quizzes.length * 100);
+  document.getElementById('progressFill').style.width = fill + '%';
+  if (answered.length === quizzes.length) {
+    const corr = quizzes.filter((_, i) => document.getElementById('qr'+i).style.color === 'var(--green-600)').length;
+    document.getElementById('scoreGrid').style.display = 'grid';
+    document.getElementById('sc').textContent = corr;
+    document.getElementById('sp').textContent = Math.round(corr / quizzes.length * 100) + '%';
+  }
+}
+
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
